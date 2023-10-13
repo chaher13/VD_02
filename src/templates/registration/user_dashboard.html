@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - Mon Site Web{% endblock %}
+
+
+{% block content %}
+    <h1>Tableau de bord</h1>
+    <p>Bienvenue sur votre tableau de bord, {{ user.username }}.</p>
+    <form class="" action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="button">se déconnecter</button>
+    </form>
+{% endblock %}
