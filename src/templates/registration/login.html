@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Connexion - Mon Site Web{% endblock %}
-
+{% load static %}
 {% block content %}
-    <h1>Connexion</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Se connecter</button>
-    </form>
-    <p>Vous n'avez pas de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
-</div>
+<head>
+<link rel="stylesheet" href="{% static 'styles/form_login.css' %}">
+</head>
+    <div class="form-group2">
+            <h1>Connexion</h1>
+            <form method="post" class="user-login-form">
+                {% csrf_token %}
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                <button type="submit" class="submit-button">Se connecter</button>
+            </form>
+        </div>
+
 {% endblock %}
