@@ -32,8 +32,15 @@
         <li class="bouton"><a href="{% url 'index' %}">Accueil</a></li>
         <li class="bouton"><a href="#tarifs">Tarifs</a></li>
         <li class="bouton"><a href="{% url 'contact' %}">Contact</a></li>
+        {% if user.is_authenticated %}
+          <li class="bouton"><form class="" action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="button">se déconnecter</button>
+    </form></li>
+        {% else %}
         <li class="bouton"><a href="{% url 'register' %}">S'inscrire</a></li>
         <li class="bouton"><a href="{% url 'login' %}">Se connecter</a></li>
+        {% endif %}
       </ul>
     </nav>
     {% block content %} {% endblock %}

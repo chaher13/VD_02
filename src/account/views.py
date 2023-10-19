@@ -1,23 +1,34 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from utilisateur.forms import  UserLoginForm, UserRegistrationForm
+from django.contrib import messages
 
 
 def index(request):
     return render(request, "registration/index.html")
 
+
 def register_user(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('dashboard')
+            if form.cleaned_data['password1'] == form.cleaned_data['password2']:
+                try:
+                    user = form.save()
+                    login(request, user)
+                    return redirect('dashboard')
+                except IntegrityError:
+                    messages.error(request, 'Ce nom d\'utilisateur existe déjà.')
+            else:
+                messages.error(request, 'Les mots de passe ne correspondent pas.')
     else:
         form = UserRegistrationForm()
 
     return render(request, 'registration/register.html', {'form': form})
+
+
 
 def login_user(request):
     if request.method == 'POST':
@@ -34,7 +45,7 @@ def login_user(request):
 def logout_user(request):
     if request.method == 'POST':
         logout(request)
-        return render(request, 'registration/deconnexion.html')
+    return render(request, 'registration/deconnexion.html')
 
 @login_required
 def user_dashboard(request):
