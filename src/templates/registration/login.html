@@ -14,6 +14,9 @@
                 {{ form.username }}
                 {{ form.password.label_tag }}
                 {{ form.password }}
+                {% if form.errors %}
+                <p class="error-message1">{{ form.errors.as_text }}</p>
+                {% endif %}
                 <button type="submit" class="submit-button">Se connecter</button>
             </form>
         </div>

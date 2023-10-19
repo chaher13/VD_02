@@ -8,6 +8,6 @@
     <p>Bienvenue sur votre tableau de bord, {{ user.username }}.</p>
     <form class="" action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
-    <button type="submit" name="button">se déconnecter</button>
+    <!-- <button type="submit" name="button">Se déconnecter</button> -->
     </form>
 {% endblock %}
